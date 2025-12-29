@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 const API_BASE_URL = 'http://localhost:8000';
 
-// Time slot configuration - 80px per 30 minutes (160px per hour) for better visibility and larger calendar
 const SLOT_HEIGHT = 80;
 
 const AppointmentManagementView = () => {
@@ -143,12 +142,12 @@ const AppointmentManagementView = () => {
       filteredAppointments = filteredAppointments.filter(apt => {
         const aptDate = new Date(apt.date + 'T00:00:00');
         aptDate.setHours(0, 0, 0, 0);
-        // Include appointments with "Upcoming" status OR future dates
+        // appointments with "Upcoming" status OR future dates
         return apt.status === 'Upcoming' || aptDate > today;
       });
     }
 
-    // Then apply view mode filtering
+    // applying view mode filtering
     if (viewMode === 'Day') {
       const dateStr = currentDate.toISOString().split('T')[0];
       return filteredAppointments.filter(apt => apt.date === dateStr);
@@ -199,14 +198,14 @@ const AppointmentManagementView = () => {
     setError(null);
 
     try {
-      // Calculate duration from start and end time
+      // calculatingduration from start and end time
       const [startHours, startMinutes] = formData.startTime.split(':').map(Number);
       const [endHours, endMinutes] = formData.endTime.split(':').map(Number);
       const startTotal = startHours * 60 + startMinutes;
       const endTotal = endHours * 60 + endMinutes;
       const calculatedDuration = endTotal - startTotal;
 
-      // Prepare payload for backend
+      // preparing payload for backend
       const payload = {
         patientName: formData.patientName,
         date: formData.date || currentDate.toISOString().split('T')[0],

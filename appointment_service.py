@@ -333,13 +333,13 @@ class AppointmentService:
                         f"from {existing.time} to {existing_end.strftime('%H:%M')} on {date}"
                     )
         
-        # Generate unique appointment ID
+        # generating unique appointment ID
         appointment_id = f"apt-{str(uuid.uuid4())[:8]}"
         
         # Set default status if not provided
         status = payload.get("status", "Scheduled")
         
-        # Validate status
+        # validating status
         valid_statuses = ["Confirmed", "Scheduled", "Upcoming", "Cancelled"]
         if status not in valid_statuses:
             raise ValueError(f"Invalid status: {status}. Must be one of {valid_statuses}")
