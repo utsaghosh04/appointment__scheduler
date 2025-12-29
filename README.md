@@ -2,7 +2,7 @@
 
 This project implements a functional Appointment Scheduling and Queue Management system with a React frontend and Python FastAPI backend service.
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Step 1: Install Dependencies
 
@@ -19,7 +19,7 @@ npm install
 ### Step 2: Start the Backend Server
 
 ```bash
-python appointment_service.py
+uvicorn appointment_service:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 The API will be available at **http://localhost:8000**
@@ -36,18 +36,7 @@ npm run dev
 
 The frontend will run on **http://localhost:5173** (or similar)
 
-### Alternative: Using uvicorn directly
-
-```bash
-uvicorn appointment_service:app --reload --host 0.0.0.0 --port 8000
-```
-
-**Options:**
-- `--reload` - Auto-reload on code changes (development mode)
-- `--host 0.0.0.0` - Allow connections from any IP
-- `--port 8000` - Port number (default is 8000)
-
-## 📁 Project Structure
+##  Project Structure
 
 ```
 SwasthiQ-assignment/
@@ -58,30 +47,30 @@ SwasthiQ-assignment/
 └── README.md                       # This file
 ```
 
-## ✨ Features Implemented
+##  Features Implemented
 
 ### Backend Service (Task 1)
-- ✅ Mock data with 12+ appointments
-- ✅ `get_appointments(filters)` - Query with optional date, status, doctorName filters
-- ✅ `update_appointment_status(id, new_status)` - Update appointment status
-- ✅ `create_appointment(payload)` - Create with validation and conflict detection
-- ✅ `delete_appointment(id)` - Delete appointments
-- ✅ Data consistency documentation
-- ✅ FastAPI REST API endpoints
+-  Mock data with 12+ appointments
+-  `get_appointments(filters)` - Query with optional date, status, doctorName filters
+-  `update_appointment_status(id, new_status)` - Update appointment status
+-  `create_appointment(payload)` - Create with validation and conflict detection
+-  `delete_appointment(id)` - Delete appointments
+-  Data consistency documentation
+-  FastAPI REST API endpoints
 
 ### Frontend Integration (Task 2)
-- ✅ Data fetching with React hooks (useState/useEffect)
-- ✅ Calendar filtering - Click date to filter appointments
-- ✅ Tab filtering - Upcoming, Today, Past tabs
-- ✅ Status updates - Update appointment status via backend API
-- ✅ Create appointment - Form with backend validation
-- ✅ Delete appointment - Delete functionality with confirmation
-- ✅ Day/Week/Month view selectors
-- ✅ 30-minute time interval display
-- ✅ Status-based color coding
-- ✅ No frontend-only state mutations - All changes go through backend
+-  Data fetching with React hooks (useState/useEffect)
+-  Calendar filtering - Click date to filter appointments
+-  Tab filtering - Upcoming, Today, Past tabs
+-  Status updates - Update appointment status via backend API
+-  Create appointment - Form with backend validation
+-  Delete appointment - Delete functionality with confirmation
+-  Day/Week/Month view selectors
+-  30-minute time interval display
+-  Status-based color coding
+-  No frontend-only state mutations - All changes go through backend
 
-## 🔧 Setup Instructions
+##  Setup Instructions
 
 ### Prerequisites
 - Node.js (v14 or higher)
@@ -103,7 +92,7 @@ This installs:
 
 2. **Run the server:**
 ```bash
-python appointment_service.py
+uvicorn appointment_service:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### Frontend Setup
@@ -118,12 +107,7 @@ npm install
 npm run dev
 ```
 
-3. **Build for production:**
-```bash
-npm run build
-```
-
-## 🔌 API Endpoints
+##  API Endpoints
 
 The FastAPI server (`appointment_service.py`) exposes REST endpoints:
 
@@ -255,7 +239,7 @@ await fetch(`http://localhost:8000/appointments/${id}`, {
 })
 ```
 
-## 🎨 Component Features
+##  Component Features
 
 ### Calendar Widget
 - Click any date to filter appointments for that date
@@ -288,7 +272,7 @@ await fetch(`http://localhost:8000/appointments/${id}`, {
 - Confirmation dialog before deletion
 - Works in Day, Week, and Month views
 
-## 🔄 Data Flow
+##  Data Flow
 
 1. **Initial Load**: `useEffect` calls `get_appointments()` on mount
 2. **Date Filter**: User clicks calendar → filters applied via API call
@@ -297,7 +281,7 @@ await fetch(`http://localhost:8000/appointments/${id}`, {
 5. **Create**: User submits form → calls backend → refreshes list
 6. **Delete**: User deletes appointment → calls backend → refreshes list
 
-## 📊 GraphQL Query Structure
+##  GraphQL Query Structure
 
 ### getAppointments Query Design
 
@@ -422,7 +406,7 @@ subscription OnAppointmentCreate {
 }
 ```
 
-## 🔒 Data Consistency in Python Functions
+##  Data Consistency in Python Functions
 
 ### 1. Transaction Management
 
@@ -555,9 +539,9 @@ If version mismatch, transaction fails (someone else modified it).
 - **Eventual Consistency**: Handle AppSync subscription delays gracefully
 - **Audit Trail**: Log all mutations with timestamps and user IDs
 
-## 🚀 Deployment
+##  Deployment
 
-### Deploy to Vercel
+### Deployed to Vercel
 
 #### Option 1: Vercel CLI
 
@@ -659,53 +643,6 @@ git branch -M main
 git push -u origin main
 ```
 
-## ✅ Submission Checklist
-
-### Required Files
-- [x] **appointment_service.py** - Python backend service (Task 1)
-- [x] **EMR_Frontend_Assignment.jsx** - React frontend component (Task 2)
-- [x] **README.md** - Documentation with GraphQL query structure and data consistency explanation
-- [x] **package.json** - Dependencies and scripts
-- [x] **requirements.txt** - Python dependencies
-- [x] **.gitignore** - Git ignore file
-
-### Submission Requirements
-
-#### 1. Single Repository ✅
-- [ ] Initialize Git repository: `git init`
-- [ ] Add all files: `git add .`
-- [ ] Commit: `git commit -m "Initial commit"`
-- [ ] Create repository on GitHub/GitLab/Bitbucket
-- [ ] Push code: `git push -u origin main`
-- [ ] **Provide repository link in submission**
-
-#### 2. Frontend File ✅
-- [x] `EMR_Frontend_Assignment.jsx` exists
-- [x] Implements all required features:
-  - [x] Data fetching with useState/useEffect
-  - [x] Calendar filtering
-  - [x] Tab filtering (Upcoming, Today, Past)
-  - [x] Status updates via backend
-  - [x] Create appointment form
-  - [x] Delete appointment functionality
-  - [x] No frontend-only state mutations
-
-#### 3. Backend File ✅
-- [x] `appointment_service.py` exists
-- [x] Contains all required functions:
-  - [x] `get_appointments(filters)`
-  - [x] `update_appointment_status(id, new_status)`
-  - [x] `create_appointment(payload)`
-  - [x] `delete_appointment(id)` (optional but included)
-- [x] Mock data with 10+ appointments
-- [x] Data consistency comments
-- [x] FastAPI REST API endpoints
-
-#### 4. Live Link ⚠️
-- [ ] Deploy to Vercel or Netlify
-- [ ] Test all functionality on live site
-- [ ] **Provide live URL in submission**
-
 **Quick Deploy Steps:**
 ```bash
 # Install dependencies
@@ -721,63 +658,12 @@ npx vercel --prod
 npx netlify deploy --prod --dir=dist
 ```
 
-#### 5. Technical Explanation ✅
-- [x] README.md includes GraphQL query structure
-- [x] README.md explains data consistency in Python functions
-- [x] Documentation is clear and comprehensive
+### Submission
 
-### Pre-Submission Testing
+1. **Repository Link:** `https://github.com/utsaghosh04/appointment__scheduler.git`
+2. **Live Link:** `https://appointmentscheduler-six.vercel.app/`
 
-Before submitting, test:
-
-- [ ] **Backend Service:**
-  ```bash
-  python appointment_service.py
-  ```
-  Should run without errors and show server running message
-
-- [ ] **Frontend Locally:**
-  ```bash
-  npm install
-  npm run dev
-  ```
-  Should start dev server and display appointment management UI
-
-- [ ] **All Features:**
-  - [ ] View all appointments
-  - [ ] Filter by date (click calendar)
-  - [ ] Filter by tab (Upcoming/Today/Past)
-  - [ ] Update appointment status
-  - [ ] Create new appointment
-  - [ ] Delete appointment
-  - [ ] Error handling (try invalid data)
-
-- [ ] **Live Deployment:**
-  - [ ] All features work on live site
-  - [ ] No console errors
-  - [ ] Responsive design works
-
-### Submission Format
-
-When submitting, include:
-
-1. **Repository Link:** `https://github.com/yourusername/swasthiq-assignment`
-2. **Live Link:** `https://your-project.vercel.app` (or Netlify URL)
-3. **Brief Description:**
-   - What you built
-   - Key features implemented
-   - Any challenges faced
-
-### Code Quality Checklist
-
-- [x] Code is well-commented
-- [x] Functions have docstrings
-- [x] Error handling implemented
-- [x] No console.log statements in production code
-- [x] Consistent code style
-- [x] README is comprehensive
-
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 ### Backend Issues
 
@@ -785,10 +671,7 @@ When submitting, include:
 If port 8000 is already in use, you can change it:
 
 ```bash
-# Method 1: Edit appointment_service.py, change port=8000 to another port
-uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)
-
-# Method 2: Use uvicorn command with different port
+# Use uvicorn command with different port
 uvicorn appointment_service:app --reload --port 8001
 ```
 
@@ -856,17 +739,7 @@ If frontend can't connect to backend:
    
    This provides ReDoc documentation (alternative to Swagger)
 
-## 📝 Notes
-
-- All state changes go through the backend service (no direct mutations)
-- Error handling with user-friendly messages
-- Loading states for async operations
-- Responsive design with Tailwind CSS classes
-- Conflict detection prevents double-booking
-- Status-based color coding for visual clarity
-- Delete functionality with confirmation dialogs
-
-## 🏗️ Production Considerations
+##  Production Considerations
 
 The code includes comments explaining how this would work in production:
 - AWS AppSync for GraphQL API
@@ -878,7 +751,7 @@ The code includes comments explaining how this would work in production:
 - Idempotency keys for safe retries
 - Optimistic locking for concurrent updates
 
-## 📚 Additional Resources
+##  Additional Resources
 
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
 - [React Documentation](https://react.dev/)
@@ -886,10 +759,4 @@ The code includes comments explaining how this would work in production:
 - [Vercel Deployment Guide](https://vercel.com/docs)
 - [Netlify Deployment Guide](https://docs.netlify.com/)
 
-## 📄 License
-
-This project is part of a technical assignment for SwasthiQ.
-
 ---
-
-**Good luck with your submission! 🎉**

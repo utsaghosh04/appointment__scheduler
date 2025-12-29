@@ -279,18 +279,11 @@ const AppointmentManagementView = () => {
     const [hours, minutes] = appointment.time.split(':').map(Number);
     const startMinutes = hours * 60 + minutes;
     const endMinutes = startMinutes + appointment.duration;
-    
-    // Calendar starts at 7 AM (420 minutes)
     const calendarStart = 7 * 60;
-    // Calculate top position: each 30-minute slot is SLOT_HEIGHT pixels
-    // Round to nearest pixel for precise alignment
     const top = Math.round(((startMinutes - calendarStart) / 30) * SLOT_HEIGHT);
-    // Calculate height based on duration: each 30 minutes = SLOT_HEIGHT pixels
-    // Minimum height ensures content is readable (at least 1 slot for very short appointments)
     const calculatedHeight = (appointment.duration / 30) * SLOT_HEIGHT;
     const height = Math.max(calculatedHeight, SLOT_HEIGHT);
     
-    // Find all overlapping appointments
     const overlapping = allAppointments
       .filter(apt => {
         if (apt.id === appointment.id) return false;
@@ -298,11 +291,9 @@ const AppointmentManagementView = () => {
         const aptStart = aptHours * 60 + aptMinutes;
         const aptEnd = aptStart + apt.duration;
         
-        // Check if appointments overlap
         return !(endMinutes <= aptStart || startMinutes >= aptEnd);
       })
       .sort((a, b) => {
-        // Sort by start time, then by doctor name for consistent positioning
         const [aHours, aMinutes] = a.time.split(':').map(Number);
         const [bHours, bMinutes] = b.time.split(':').map(Number);
         const aStart = aHours * 60 + aMinutes;
@@ -311,7 +302,6 @@ const AppointmentManagementView = () => {
         return a.doctorName.localeCompare(b.doctorName);
       });
     
-    // Find this appointment's position in the sorted overlapping list
     const apptStart = startMinutes;
     let overlapIndex = 0;
     for (const overlap of overlapping) {
@@ -324,9 +314,8 @@ const AppointmentManagementView = () => {
       }
     }
     
-    // Calculate position: distribute overlapping appointments evenly with spacing
     const totalOverlapping = overlapping.length + 1;
-    const gapPercent = 2; // 2% gap between overlapping appointments for better spacing
+    const gapPercent = 2; 
     const totalGaps = totalOverlapping - 1;
     const availableWidth = 100 - (totalGaps * gapPercent);
     const width = availableWidth / totalOverlapping;
@@ -334,9 +323,9 @@ const AppointmentManagementView = () => {
     
     return {
       top: `${top}px`,
-      height: `${Math.round(height)}px`, // Round to ensure pixel-perfect alignment
+      height: `${Math.round(height)}px`,
       left: `${leftOffset}%`,
-      width: `${Math.max(width, 20)}%`, // Ensure minimum width of 20%
+      width: `${Math.max(width, 20)}%`,
       zIndex: 10 + overlapIndex
     };
   };

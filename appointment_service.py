@@ -445,7 +445,7 @@ app = FastAPI(
 # Add CORS middleware to allow frontend requests
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000", "http://localhost:5174"],  # Vite default ports
+    allow_origins=["http://localhost:5173", "http://localhost:3000", "http://localhost:5174", "https://appointmentscheduler-six.vercel.app"],
     allow_credentials=True, allow_methods=["*"], allow_headers=["*"], )
 
 # Initialize the appointment service instance
@@ -492,14 +492,6 @@ async def get_appointments(
     status: Optional[str] = Query(None, description="Filter by status"),
     doctorName: Optional[str] = Query(None, description="Filter by doctor name")
 ):
-    """
-    Get appointments with optional filtering
-    
-    Query Parameters:
-    - date: Filter by date (YYYY-MM-DD)
-    - status: Filter by status (Confirmed, Scheduled, Upcoming, Cancelled)
-    - doctorName: Filter by doctor name
-    """
     filters = {}
     if date:
         filters["date"] = date
@@ -517,11 +509,6 @@ async def get_appointments(
 
 @app.post("/appointments", response_model=Dict[str, Any])
 async def create_appointment(appointment: CreateAppointmentInput):
-    """
-    Create a new appointment
-    
-    Validates required fields and checks for time conflicts
-    """
     try:
         # Use model_dump() for Pydantic v2, fallback to dict() for v1
         payload = appointment.model_dump() if hasattr(appointment, 'model_dump') else appointment.dict()
@@ -538,15 +525,6 @@ async def update_appointment_status(
     appointment_id: str,
     status_update: UpdateStatusInput
 ):
-    """
-    Update the status of an appointment
-    
-    Path Parameters:
-    - appointment_id: The ID of the appointment to update
-    
-    Request Body:
-    - status: New status value (Confirmed, Scheduled, Upcoming, Cancelled)
-    """
     try:
         updated = appointment_service.update_appointment_status(
             appointment_id,
@@ -563,12 +541,6 @@ async def update_appointment_status(
 
 @app.delete("/appointments/{appointment_id}")
 async def delete_appointment(appointment_id: str):
-    """
-    Delete an appointment by ID
-    
-    Path Parameters:
-    - appointment_id: The ID of the appointment to delete
-    """
     try:
         deleted = appointment_service.delete_appointment(appointment_id)
         if not deleted:
